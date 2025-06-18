@@ -81,7 +81,7 @@
       "name": {
         "en": "DucoBox mDNS"
       },
-      "class": "fan",
+      "class": "airtreatment",
       "capabilities": [
         "onoff",
         "fan_mode",

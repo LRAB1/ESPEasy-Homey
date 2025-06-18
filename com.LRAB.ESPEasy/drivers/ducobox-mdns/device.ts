@@ -7,6 +7,9 @@ module.exports = class MyDevice extends Homey.Device {
    * onInit is called when the device is initialized.
    */
   async onInit() {
+    // const deviceID = await this.homey.discovery.getStrategy('{{ESP_EASY_DucoBox_}}')
+    // this.log(deviceID); //Debug attempt. TODO: see if able to get deviceID/IP this way.
+
     this.log('DUCOBOX-mDNS has been initialized');
 
     this.registerCapabilityListener('onoff', async (value) => {
@@ -18,17 +21,17 @@ module.exports = class MyDevice extends Homey.Device {
     this.registerCapabilityListener('fan_mode', async (state) => {
       this.log('fan_mode', state);
       if (state === 'off') {
-        const req = get('http://192.168.2.26/control?cmd=event,relaisOff');
+        const req = get('http://192.168.2.26/control?cmd=event,relaisOff'); //Currently hardcoded. TODO: make dynamic
         this.setCapabilityValue('fan_speed', 0.25);
         this.setCapabilityValue('onoff', false);
         //this.log(req); //Logging available for debugging.
       } else if (state === 'on') {
-        const req = get('http://192.168.2.26/control?cmd=event,relaisOnHigh');
+        const req = get('http://192.168.2.26/control?cmd=event,relaisOnHigh'); //Currently hardcoded. TODO: make dynamic
         this.setCapabilityValue('fan_speed', 1)
         this.setCapabilityValue('onoff', true);
         //this.log(req); //Logging available for debugging.
       } else if (state === 'auto') {
-        const req = get('http://192.168.2.26/control?cmd=event,relaisOn');
+        const req = get('http://192.168.2.26/control?cmd=event,relaisOn'); //Currently hardcoded. TODO: make dynamic
         this.setCapabilityValue('onoff', true);
         //this.log(req); // Logging available for debugging.
       }
