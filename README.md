@@ -1,1 +1,1 @@
-# ESPEasy-Gateway
+# ESPEasy-Homey app
