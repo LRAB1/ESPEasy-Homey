@@ -21,9 +21,9 @@ module.exports = class MyDriver extends Homey.Driver {
         data: {
           id: 'my-device-001',
         },
-        // store: {
-        //   address: '127.0.0.1',
-        // },
+         store: {
+           address: `${this.id}`,
+         },
       },
     ];
   }

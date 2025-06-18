@@ -1,4 +1,5 @@
 import Homey from 'homey';
+import { get } from 'node:http';
 
 module.exports = class MyDevice extends Homey.Device {
 
@@ -16,6 +17,21 @@ module.exports = class MyDevice extends Homey.Device {
     
     this.registerCapabilityListener('fan_mode', async (state) => {
       this.log('fan_mode', state);
+      if (state === 'off') {
+        const req = get('http://192.168.2.26/control?cmd=event,relaisOff');
+        this.setCapabilityValue('fan_speed', 0.25);
+        this.setCapabilityValue('onoff', false);
+        //this.log(req); //Logging available for debugging.
+      } else if (state === 'on') {
+        const req = get('http://192.168.2.26/control?cmd=event,relaisOnHigh');
+        this.setCapabilityValue('fan_speed', 1)
+        this.setCapabilityValue('onoff', true);
+        //this.log(req); //Logging available for debugging.
+      } else if (state === 'auto') {
+        const req = get('http://192.168.2.26/control?cmd=event,relaisOn');
+        this.setCapabilityValue('onoff', true);
+        //this.log(req); // Logging available for debugging.
+      }
     });
       
     this.setCapabilityValue('fan_mode', 'auto').catch(this.error);
