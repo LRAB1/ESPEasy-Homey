@@ -6,25 +6,31 @@ module.exports = class MyDevice extends Homey.Device {
    * onInit is called when the device is initialized.
    */
   async onInit() {
-    this.log('MyDevice has been initialized');
+    this.log('DUCOBOX-mDNS has been initialized');
 
-    this.registerCapabilityListener('button', async (value) => {
-      this.log('Button On/Off', value)
+    this.registerCapabilityListener('onoff', async (value) => {
+      this.log('Button On/Off', value);
     });
 
-    this.setCapabilityValue('button', true).catch(this.error);
+    this.setCapabilityValue('onoff', true).catch(this.error);
+    
+    this.registerCapabilityListener('fan_mode', async (state) => {
+      this.log('fan_mode', state);
+    });
+      
+    this.setCapabilityValue('fan_mode', 'auto').catch(this.error);
+
+    this.registerCapabilityListener('fan_speed', async (speed) => {
+      this.log('fan_speed', speed);
+    });
+
+    this.setCapabilityValue('fan_speed', 0).catch(this.error);
 
     this.setUnavailable(this.homey.__('device_unavailable')).catch(this.error);
-    
+
     this.setAvailable();
   }
-
-  /**
-   * onAdded is called when the user adds the device, called just after pairing.
-   */
-  async onAdded() {
-    this.log('MyDevice has been added');
-  }
+  
 
   /**
    * onSettings is called when the user updates the device's settings.

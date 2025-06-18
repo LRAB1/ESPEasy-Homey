@@ -6,7 +6,7 @@ module.exports = class MyDriver extends Homey.Driver {
    * onInit is called when the driver is initialized.
    */
   async onInit() {
-    this.log('old driver has been initialized');
+    this.log('DUCOBOX-mDNS has been initialized');
   }
 
   /**
