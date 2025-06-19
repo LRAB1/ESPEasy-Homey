@@ -8,22 +8,13 @@ module.exports = class MyDevice extends Homey.Device {
    */
   async onInit() {
     this.log('Aquarium-mDNS has been initialized');
-    //  Setting a listener for onoff.
+    // Adding onoff listener.
     this.registerCapabilityListener('onoff', async (value) => {
-      this.log(value);
-      if (this.getCapabilityValue('button') != value) {
-        this.setCapabilityValue('button', value);
-      } else {
-        sendState(value);
-        this.setCapabilityValue('button', value);
-      };
-    });
-    //  Doing something with the onoff value.
-    async function sendState(value:string) {
+      //  this.log('onoff', value); //  Logging if needed.
+      this.setCapabilityValue('onoff', value).catch(this.error);
       get(`http://192.168.2.31/control?cmd=event,homey${value}`);
-    };
-    }
-  };
+    });
+  }
 
   /**
    * onAdded is called when the user adds the device, called just after pairing.
@@ -49,7 +40,7 @@ module.exports = class MyDevice extends Homey.Device {
     newSettings: { [key: string]: boolean | string | number | undefined | null };
     changedKeys: string[];
   }): Promise<string | void> {
-    this.log('MyDevice settings where change');
+    this.log('MyDevice settings where changed');
   }
 
   /**
