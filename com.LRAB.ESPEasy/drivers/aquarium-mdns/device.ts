@@ -1,4 +1,5 @@
 import Homey from 'homey';
+import { get } from 'node:http';
 
 module.exports = class MyDevice extends Homey.Device {
 
@@ -6,14 +7,29 @@ module.exports = class MyDevice extends Homey.Device {
    * onInit is called when the device is initialized.
    */
   async onInit() {
-    this.log('Aquarium has been initialized');
-  }
+    this.log('Aquarium-mDNS has been initialized');
+    //  Setting a listener for onoff.
+    this.registerCapabilityListener('onoff', async (value) => {
+      this.log(value);
+      if (this.getCapabilityValue('button') != value) {
+        this.setCapabilityValue('button', value);
+      } else {
+        sendState(value);
+        this.setCapabilityValue('button', value);
+      };
+    });
+    //  Doing something with the onoff value.
+    async function sendState(value:string) {
+      get(`http://192.168.2.31/control?cmd=event,homey${value}`);
+    };
+    }
+  };
 
   /**
    * onAdded is called when the user adds the device, called just after pairing.
    */
   async onAdded() {
-    this.log('MyDevice has been added');
+    this.log('Aquarium has been added');
   }
 
   /**
@@ -33,7 +49,7 @@ module.exports = class MyDevice extends Homey.Device {
     newSettings: { [key: string]: boolean | string | number | undefined | null };
     changedKeys: string[];
   }): Promise<string | void> {
-    this.log("MyDevice settings where changed");
+    this.log('MyDevice settings where change');
   }
 
   /**
@@ -49,7 +65,7 @@ module.exports = class MyDevice extends Homey.Device {
    * onDeleted is called when the user deleted the device.
    */
   async onDeleted() {
-    this.log('MyDevice has been deleted');
+    this.log('Aquarium has been deleted');
   }
 
 };

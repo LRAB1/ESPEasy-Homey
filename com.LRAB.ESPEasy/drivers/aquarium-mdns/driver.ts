@@ -16,15 +16,15 @@ module.exports = class MyDriver extends Homey.Driver {
   async onPairListDevices() {
     return [
       // Example device data, note that `store` is optional
-      // {
-      //   name: 'My Device',
-      //   data: {
-      //     id: 'my-device',
-      //   },
-      //   store: {
-      //     address: '127.0.0.1',
-      //   },
-      // },
+      {
+        name: 'Aquarium ESP-EASY',
+        data: {
+          id: 'aquarium-001',
+        },
+        //  store: {
+        //    address: `${this.id}`,
+        //  },
+      },
     ];
   }
 
