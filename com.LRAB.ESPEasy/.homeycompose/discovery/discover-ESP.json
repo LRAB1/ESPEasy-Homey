@@ -1,7 +1,0 @@
-{
-  "type": "ssdp",
-  "ssdp": {
-    "search": "\"192.168.4.1\""
-  },
-  "id": "{{ESP_EASY_DucoBox_2}}"
-}
