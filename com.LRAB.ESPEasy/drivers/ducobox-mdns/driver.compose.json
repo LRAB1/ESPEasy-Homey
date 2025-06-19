@@ -5,7 +5,7 @@
   "class": "airtreatment",
   "capabilities": [
     "fan_mode",
-    "onoff" ,
+    "onoff",
     "fan_speed"
   ],
   "platforms": [
