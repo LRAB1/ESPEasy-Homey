@@ -79,41 +79,6 @@
     },
     {
       "name": {
-        "en": "DucoBox",
-        "nl": "DucoBox"
-      },
-      "class": "fan",
-      "capabilities": [
-        "button"
-      ],
-      "platforms": [
-        "local"
-      ],
-      "connectivity": [
-        "lan"
-      ],
-      "images": {
-        "small": "/drivers/ducobox/assets/images/small.png",
-        "large": "/drivers/ducobox/assets/images/large.png",
-        "xlarge": "/drivers/ducobox/assets/images/xlarge.png"
-      },
-      "pair": [
-        {
-          "id": "list_devices",
-          "template": "list_devices",
-          "navigation": {
-            "next": "add_devices"
-          }
-        },
-        {
-          "id": "add_devices",
-          "template": "add_devices"
-        }
-      ],
-      "id": "ducobox"
-    },
-    {
-      "name": {
         "en": "DucoBox mDNS"
       },
       "class": "airtreatment",
@@ -157,13 +122,6 @@
         "protocol": "udp"
       },
       "id": "{{{ESP_EASY_Aquarium_}}}"
-    },
-    "discover-ESP": {
-      "type": "ssdp",
-      "ssdp": {
-        "search": "\"192.168.4.1\""
-      },
-      "id": "{{ESP_EASY_DucoBox_2}}"
     },
     "DucoBox-mDNS": {
       "type": "mdns-sd",
