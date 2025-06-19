@@ -3,9 +3,9 @@
     "en": "DucoBox mDNS"
   },
   "class": "airtreatment",
-  "capabilities": [ 
-    "onoff",
+  "capabilities": [
     "fan_mode",
+    "onoff",
     "fan_speed"
   ],
   "platforms": [
