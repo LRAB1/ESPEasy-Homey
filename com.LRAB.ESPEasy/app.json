@@ -44,6 +44,29 @@
   "drivers": [
     {
       "name": {
+        "en": "Aquarium-mDNS"
+      },
+      "class": "light",
+      "capabilities": [
+        "button",
+        "light_mode",
+        "onoff"
+      ],
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "lan"
+      ],
+      "images": {
+        "small": "/drivers/aquarium-mdns/assets/images/small.png",
+        "large": "/drivers/aquarium-mdns/assets/images/large.png",
+        "xlarge": "/drivers/aquarium-mdns/assets/images/xlarge.png"
+      },
+      "id": "aquarium-mdns"
+    },
+    {
+      "name": {
         "en": "DucoBox",
         "nl": "DucoBox"
       },
@@ -115,6 +138,14 @@
     }
   ],
   "discovery": {
+    "Aquarium-mDNS": {
+      "type": "mdns-sd",
+      "mdns-sd": {
+        "name": "Aquarium-mDNS",
+        "protocol": "udp"
+      },
+      "id": "{{{ESP_EASY_Aquarium_}}}"
+    },
     "discover-ESP": {
       "type": "ssdp",
       "ssdp": {
