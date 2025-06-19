@@ -14,6 +14,10 @@ module.exports = class MyDevice extends Homey.Device {
       this.setCapabilityValue('onoff', value).catch(this.error);
       get(`http://192.168.2.31/control?cmd=event,homey${value}`);
     });
+
+    this.setUnavailable(this.homey.__('device_unavailable')).catch(this.error);
+
+    await this.setAvailable();
   }
 
   /**
