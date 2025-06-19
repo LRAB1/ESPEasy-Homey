@@ -11,8 +11,8 @@ module.exports = class MyDevice extends Homey.Device {
     // Adding onoff listener.
     this.registerCapabilityListener('onoff', async (value) => {
       //  this.log('onoff', value); //  Logging if needed.
-      this.setCapabilityValue('onoff', value).catch(this.error);
-      get(`http://192.168.2.31/control?cmd=event,homey${value}`);
+      //  this.setCapabilityValue('onoff', value).catch(this.error); // The great Emilio declared this not needed.
+      await get(`http://192.168.2.31/control?cmd=event,homey${value}`);
     });
 
     this.setUnavailable(this.homey.__('device_unavailable')).catch(this.error);

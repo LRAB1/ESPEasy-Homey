@@ -48,7 +48,8 @@
       },
       "class": "light",
       "capabilities": [
-        "onoff"
+        "onoff",
+        "light_mode"
       ],
       "platforms": [
         "local"
