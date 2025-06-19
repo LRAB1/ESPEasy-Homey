@@ -36,7 +36,7 @@ module.exports = class MyDevice extends Homey.Device {
         //this.log(req); //Logging available for debugging.
       }  else if (state === 'auto') {
          const req = get('http://192.168.2.26/control?cmd=event,relaisOn'); //Currently hardcoded. TODO: make dynamic
-         this.setCapabilityValue('fan_speed', 1).catch(this.error);
+         this.setCapabilityValue('fan_speed', .5).catch(this.error);
          this.setCapabilityValue('onoff', true);
          //this.log(req); // Logging available for debugging.
        }
