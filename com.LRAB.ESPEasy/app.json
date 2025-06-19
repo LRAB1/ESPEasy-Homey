@@ -134,6 +134,16 @@
           "template": "add_devices"
         }
       ],
+      "ui": {
+        "components": [
+          "fan_speed",
+          {
+            "capabilities": [
+              "fan_speed"
+            ]
+          }
+        ]
+      },
       "id": "ducobox-mdns"
     }
   ],
