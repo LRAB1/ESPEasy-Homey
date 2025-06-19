@@ -48,9 +48,8 @@
       },
       "class": "light",
       "capabilities": [
-        "button",
-        "light_mode",
-        "onoff"
+        "onoff",
+        "light_mode"
       ],
       "platforms": [
         "local"
@@ -62,28 +61,6 @@
         "small": "/drivers/aquarium-mdns/assets/images/small.png",
         "large": "/drivers/aquarium-mdns/assets/images/large.png",
         "xlarge": "/drivers/aquarium-mdns/assets/images/xlarge.png"
-      },
-      "id": "aquarium-mdns"
-    },
-    {
-      "name": {
-        "en": "DucoBox",
-        "nl": "DucoBox"
-      },
-      "class": "fan",
-      "capabilities": [
-        "button"
-      ],
-      "platforms": [
-        "local"
-      ],
-      "connectivity": [
-        "lan"
-      ],
-      "images": {
-        "small": "/drivers/ducobox/assets/images/small.png",
-        "large": "/drivers/ducobox/assets/images/large.png",
-        "xlarge": "/drivers/ducobox/assets/images/xlarge.png"
       },
       "pair": [
         {
@@ -98,7 +75,7 @@
           "template": "add_devices"
         }
       ],
-      "id": "ducobox"
+      "id": "aquarium-mdns"
     },
     {
       "name": {
@@ -134,16 +111,6 @@
           "template": "add_devices"
         }
       ],
-      "ui": {
-        "components": [
-          "fan_speed",
-          {
-            "capabilities": [
-              "fan_speed"
-            ]
-          }
-        ]
-      },
       "id": "ducobox-mdns"
     }
   ],
@@ -155,13 +122,6 @@
         "protocol": "udp"
       },
       "id": "{{{ESP_EASY_Aquarium_}}}"
-    },
-    "discover-ESP": {
-      "type": "ssdp",
-      "ssdp": {
-        "search": "\"192.168.4.1\""
-      },
-      "id": "{{ESP_EASY_DucoBox_2}}"
     },
     "DucoBox-mDNS": {
       "type": "mdns-sd",
