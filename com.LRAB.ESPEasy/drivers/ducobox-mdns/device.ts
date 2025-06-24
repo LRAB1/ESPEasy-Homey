@@ -1,4 +1,4 @@
-import Homey from 'homey';
+import Homey, { DiscoveryResult } from 'homey';
 import { get } from 'node:http';
 
 module.exports = class MyDevice extends Homey.Device {
@@ -15,8 +15,6 @@ module.exports = class MyDevice extends Homey.Device {
     this.registerCapabilityListener('onoff', async (value) => {
       this.log('Button On/Off', value);
     });
-
-    this.setCapabilityValue('onoff', false).catch(this.error);
     
     this.registerCapabilityListener('fan_speed', async (speed) => {
       this.log('fan_speed', speed);
@@ -24,23 +22,16 @@ module.exports = class MyDevice extends Homey.Device {
 
     this.registerCapabilityListener('fan_mode', async (state) => {
       this.log('fan_mode', state);
-      if (state === 'off') {
-        const req = get('http://192.168.2.26/control?cmd=event,relaisOff'); //  Currently hardcoded. TODO: make dynamic
-        this.setCapabilityValue('fan_speed', 0.25).catch(this.error);
+      this.setCapabilityValue('fan_mode', state).catch(this.error);
+      if (state === 'auto') {
+        get(`http://192.168.2.26/control?cmd=event,ventHigh`); // TODO: write logic to take over the auto setting from the board.
+        this.setCapabilityValue('onoff', true);
+      } else if (state === 'off') {
+        get(`http://192.168.2.26/control?cmd=event,RelaisOff`);
         this.setCapabilityValue('onoff', false);
-        //this.log(req); //Logging available for debugging.
-      } else if (state === 'on') {
-        const req = get('http://192.168.2.26/control?cmd=event,relaisOnHigh'); // Currently hardcoded. TODO: make dynamic
-        this.setCapabilityValue('fan_speed', 1).catch(this.error);
-        this.setCapabilityValue('onoff', true);
-        //  this.log(req); // Logging available for debugging.
-      } else if (state === 'auto') {
-        const req = get('http://192.168.2.26/control?cmd=event,relaisOn'); //  Currently hardcoded. TODO: make dynamic
-        this.setCapabilityValue('fan_speed', .5).catch(this.error);
-        this.setCapabilityValue('onoff', true);
-        // this.log(req); // Logging available for debugging.
       }
-    });
+      }
+    );
       
     this.setCapabilityValue('fan_mode', 'off').catch(this.error);
 
