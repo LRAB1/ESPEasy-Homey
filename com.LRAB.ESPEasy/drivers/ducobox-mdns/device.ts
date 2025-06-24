@@ -1,4 +1,4 @@
-import Homey, { DiscoveryResult } from 'homey';
+import Homey, { Device, DiscoveryResult } from 'homey';
 import { get } from 'node:http';
 
 module.exports = class MyDevice extends Homey.Device {
@@ -11,6 +11,15 @@ module.exports = class MyDevice extends Homey.Device {
     // this.log(deviceID); //Debug attempt. TODO: see if able to get deviceID/IP this way.
 
     this.log('DUCOBOX-mDNS has been initialized');
+
+    async function addBoxMode() { // TODO: fix adding the new capability
+    this.addCapability('Box_mode');
+    };
+    this.registerCapabilityListener(`Box_mode`, async (mode) => {
+      this.log(`Box_mode`, mode);
+    });
+    this.setCapabilityValue(`Box_mode`, `low`);
+    addBoxMode(deviceID);
 
     this.registerCapabilityListener('onoff', async (value) => {
       this.log('Button On/Off', value);
