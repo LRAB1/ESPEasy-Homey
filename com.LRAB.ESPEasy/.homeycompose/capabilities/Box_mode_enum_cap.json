@@ -1,0 +1,43 @@
+{
+  "id": "box_mode",
+  "type": "enum",
+  "iconObj": null,
+  "title": "Box mode",
+  "getable": true,
+  "insightsTitleTrue": "null",
+  "insightsTitleFalse": "null",
+  "values": [
+    {
+      "id": "Duco low",
+      "title": "DucoBox low"
+    },
+    {
+      "id": "Duco med",
+      "title": "DucoBox med"
+    },
+    {
+      "id": "Duco high",
+      "title": "DucoBox high"
+    },
+    {
+      "id": "Gateway_low",
+      "title": "Gateway low",
+      "setable": true
+    },
+    {
+      "id": "Gateway_med",
+      "title": "Gateway med",
+      "setable": true
+    },
+    {
+      "id": "Gateway_high",
+      "title": "Gateway high",
+      "setable": true
+    },
+    {
+      "id": "Gateway_auto",
+      "title": "Gateway automatisch",
+      "setable": true
+    }
+  ]
+}

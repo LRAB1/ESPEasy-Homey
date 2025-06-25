@@ -7,8 +7,6 @@ module.exports = class MyDevice extends Homey.Device {
    * onInit is called when the device is initialized.
    */
   async onInit() {
-    // const deviceID = await this.homey.discovery.getStrategy('{{ESP_EASY_DucoBox_}}')
-    // this.log(deviceID); //Debug attempt. TODO: see if able to get deviceID/IP this way.
 
     this.log('DUCOBOX-mDNS has been initialized');
 
@@ -19,21 +17,11 @@ module.exports = class MyDevice extends Homey.Device {
     this.registerCapabilityListener('fan_speed', async (speed) => {
       this.log('fan_speed', speed);
     });
-
-    this.registerCapabilityListener('fan_mode', async (state) => {
-      this.log('fan_mode', state);
-      this.setCapabilityValue('fan_mode', state).catch(this.error);
-      if (state === 'auto') {
-        get(`http://192.168.2.26/control?cmd=event,ventHigh`); // TODO: write logic to take over the auto setting from the board.
-        this.setCapabilityValue('onoff', true);
-      } else if (state === 'off') {
-        get(`http://192.168.2.26/control?cmd=event,RelaisOff`);
-        this.setCapabilityValue('onoff', false);
-      }
-      }
-    );
-      
-    this.setCapabilityValue('fan_mode', 'off').catch(this.error);
+    
+    this.registerCapabilityListener('Box_mode_enum_cap', async (mode) => {
+      const body = await get(`http://192.168.2.26/control?cmd=[Serial_gateWay#Ventilationmode]`);
+      console.log(`mode ${body}`);
+    });
 
     this.setUnavailable(this.homey.__('device_unavailable')).catch(this.error);
 

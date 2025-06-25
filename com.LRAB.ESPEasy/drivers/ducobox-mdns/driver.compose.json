@@ -4,9 +4,9 @@
   },
   "class": "airtreatment",
   "capabilities": [
-    "fan_mode",
     "onoff",
-    "fan_speed"
+    "fan_speed",
+    "Box_mode_enum_cap"
   ],
   "platforms": [
     "local"
