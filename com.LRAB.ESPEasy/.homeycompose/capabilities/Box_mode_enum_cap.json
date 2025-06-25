@@ -9,32 +9,21 @@
   "values": [
     {
       "id": "0",
-      "title": "DucoBox automatisch"
+      "title": "DucoBox automatisch",
+      "setable": false
     },
     {
-      "id": "Duco low",
-      "title": {"en": "DucoBox low"}
-    },
-    {
-      "id": "Duco med",
-      "title": "DucoBox med"
-    },
-    {
-      "id": "Duco high",
-      "title": "DucoBox high"
-    },
-    {
-      "id": "Gateway_low",
+      "id": "11",
       "title": "Gateway low",
       "setable": true
     },
     {
-      "id": "Gateway_med",
+      "id": "12",
       "title": "Gateway med",
       "setable": true
     },
     {
-      "id": "Gateway_high",
+      "id": "13",
       "title": "Gateway high",
       "setable": true
     },

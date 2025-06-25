@@ -1,5 +1,6 @@
 import Homey, { Device, DiscoveryResult } from 'homey';
-import { get } from 'node:http';
+import { emit } from 'node:process';
+import { stringify } from 'node:querystring';
 
 module.exports = class MyDevice extends Homey.Device {
 
@@ -17,14 +18,13 @@ module.exports = class MyDevice extends Homey.Device {
     this.registerCapabilityListener('fan_speed', async (speed) => {
       this.log('fan_speed', speed);
     });
-    
+
+    // Registering the capability listener for 'Box_mode_enum_cap'. Frontend.
     this.registerCapabilityListener('Box_mode_enum_cap', async (mode) => {
-      const body = await get(`http://192.168.2.26/json`, async (res) => {
-        this.log(res);
-      });
       this.log('Box_mode_enum_cap', mode);
-      this.setCapabilityValue('Box_mode_enum_cap', body);
     });
+
+    this.setCapabilityValue('Box_mode_enum_cap', `0`).catch(this.error); // Setting the default value when first initializing the device.
 
     this.setUnavailable(this.homey.__('device_unavailable')).catch(this.error);
 
@@ -65,7 +65,7 @@ module.exports = class MyDevice extends Homey.Device {
    * onDeleted is called when the user deleted the device.
    */
   async onDeleted() {
-    this.log('MyDevice has been deleted');
+    this.log('Ducobox has been deleted');
   }
 
 };

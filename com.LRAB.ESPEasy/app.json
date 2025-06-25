@@ -129,10 +129,8 @@
           "title": "DucoBox automatisch"
         },
         {
-          "id": "Duco low",
-          "title": {
-            "en": "DucoBox low"
-          }
+          "id": "1",
+          "title": "DucoBox low"
         },
         {
           "id": "Duco med",
