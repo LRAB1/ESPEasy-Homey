@@ -20,7 +20,7 @@ module.exports = class MyDevice extends Homey.Device {
     
     this.registerCapabilityListener('Box_mode_enum_cap', async (mode) => {
       const body = await get(`http://192.168.2.26/json`, async (res) => {
-        JSON.stringify(res);
+        this.log(res);
       });
       this.log('Box_mode_enum_cap', mode);
       this.setCapabilityValue('Box_mode_enum_cap', body);

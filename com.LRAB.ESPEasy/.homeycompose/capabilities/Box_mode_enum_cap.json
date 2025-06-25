@@ -13,7 +13,7 @@
     },
     {
       "id": "Duco low",
-      "title": "DucoBox low"
+      "title": {"en": "DucoBox low"}
     },
     {
       "id": "Duco med",
