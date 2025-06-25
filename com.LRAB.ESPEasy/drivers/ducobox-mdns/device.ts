@@ -19,8 +19,9 @@ module.exports = class MyDevice extends Homey.Device {
     });
     
     this.registerCapabilityListener('Box_mode_enum_cap', async (mode) => {
-      const body = await get(`http://192.168.2.26/control?cmd=[Serial_gateWay#Ventilationmode]`);
-      console.log(`mode ${body}`);
+      const body = get(`http://192.168.2.26/json]`);
+      this.log('Box_mode_enum_cap', mode);
+      this.setCapabilityValue('Box_mode_enum_cap', body.Sensors.TaskvValues.Value);
     });
 
     this.setUnavailable(this.homey.__('device_unavailable')).catch(this.error);

@@ -8,6 +8,10 @@
   "insightsTitleFalse": "null",
   "values": [
     {
+      "id": "0",
+      "title": "DucoBox automatisch"
+    },
+    {
       "id": "Duco low",
       "title": "DucoBox low"
     },
