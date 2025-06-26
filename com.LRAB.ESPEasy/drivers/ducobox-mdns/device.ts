@@ -1,6 +1,4 @@
 import Homey, { Device, DiscoveryResult } from 'homey';
-import { emit } from 'node:process';
-import { stringify } from 'node:querystring';
 
 module.exports = class MyDevice extends Homey.Device {
 
@@ -10,6 +8,10 @@ module.exports = class MyDevice extends Homey.Device {
   async onInit() {
 
     this.log('DUCOBOX-mDNS has been initialized');
+
+    setInterval(() => {
+      
+    }, interval);;
 
     this.registerCapabilityListener('onoff', async (value) => {
       this.log('Button On/Off', value);
