@@ -45,7 +45,7 @@ this.registerCapabilityListener('fan_speed', async (speed) => {
     // Registering the capability listener for 'Box_mode_enum_cap'. Frontend.
     this.registerCapabilityListener('Box_mode_enum_cap', async (mode) => {
       this.log('Box_mode_enum_cap', mode);
-      setInterval( () => {
+      setInterval( async () => {
         get('http://192.168.2.26/json?view=sensorupdate&tasknr=2', (res) => {
         let data = '';
         res.on('data', (chunk) => {
@@ -59,7 +59,7 @@ this.registerCapabilityListener('fan_speed', async (speed) => {
           this.setCapabilityValue('Box_mode_enum_cap', `${boxMode}`).catch(this.error);
           if (boxMode === 0) {
             this.setCapabilityValue('onoff', false).catch(this.error);
-          } else if (boxMode >= 3) {
+          } else if (boxMode > 3 && gatewayAuto === true) {
             this.setCapabilityValue('onoff', true).catch(this.error);
           };
         } catch (err) {
@@ -81,6 +81,12 @@ this.registerCapabilityListener('fan_speed', async (speed) => {
         this.log('GateWay Auto selected, calling function.');
         await gatewayAuto(true).catch(this.error);
         this.setCapabilityValue('onoff', true);
+        setInterval( async () => {
+          await gatewayAuto(false, async (res:boolean) => { // TODO: this keeps being called low and never comes back up. fix.
+          this.log(`returned value`, res);
+          }).catch(this.error);
+          this.log(`Calling gatewayauto low`);
+        }, 900000); // set to 900000 for 15 minute interval
       };
     });
 

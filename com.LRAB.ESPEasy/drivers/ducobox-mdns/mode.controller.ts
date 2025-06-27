@@ -7,7 +7,7 @@ async function gatewayAuto(autoSet:boolean, res:boolean): Promise<boolean> {
         get('http://192.168.2.26/control?cmd=event,mode13');
         return res = true;
     } else {
-        get('http://192.168.2.26/control?cmd=event,mode10');
+        get('http://192.168.2.26/control?cmd=event,mode11');
         return res = false;  
     };
 }
