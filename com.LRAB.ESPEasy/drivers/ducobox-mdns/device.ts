@@ -79,7 +79,9 @@ this.registerCapabilityListener('fan_speed', async (speed) => {
         this.log(`User requested DucoBox auto`, mode);
       } else if (mode === 'Gateway_auto') {
         this.log('GateWay Auto selected, calling function.');
-        await gatewayAuto(true).catch(this.error);
+        await gatewayAuto(true, async (res:boolean) => {
+          this.log(`Logging res for gateway auto ${res}`);
+        }).catch(this.error);
         this.setCapabilityValue('onoff', true);
         setInterval( async () => {
           await gatewayAuto(false, async (res:boolean) => { // TODO: this keeps being called low and never comes back up. fix.
