@@ -1,5 +1,6 @@
 import Homey, { Device, DiscoveryResult } from 'homey';
 import { get } from 'node:http';
+import { json } from 'node:stream/consumers';
 
 module.exports = class MyDevice extends Homey.Device {
 
@@ -14,9 +15,31 @@ module.exports = class MyDevice extends Homey.Device {
       this.log('Button On/Off', value);
     });
     
-    this.registerCapabilityListener('fan_speed', async (speed) => {
-      this.log('fan_speed', speed);
+this.registerCapabilityListener('fan_speed', async (speed) => {
+  this.log('fan_speed', speed);
+  setInterval(() => {
+    get('http://192.168.2.26/json?view=sensorupdate&tasknr=3', (res) => {
+      let data = '';
+      res.on('data', (chunk) => {
+        data += chunk;
+      });
+      res.on('end', () => {
+        try {
+          const jsonBody = JSON.parse(data);
+          const fanSpeed = jsonBody?.TaskValues?.[0]?.Value;
+          const adjustedFanSpeed = Math.abs(fanSpeed/100);
+          this.log('Parsed fan speed:', fanSpeed);
+          this.setCapabilityValue('fan_speed', adjustedFanSpeed).catch(this.error);
+        } catch (err) {
+          this.error('Failed to parse fan speed JSON:', err);
+        }
+      });
+    }).on('error', (err) => {
+      this.error('HTTP request error:', err);
     });
+    this.log('Polling fan speed...');
+  }, 5000); // 5 seconds
+});
 
     // Registering the capability listener for 'Box_mode_enum_cap'. Frontend.
     this.registerCapabilityListener('Box_mode_enum_cap', async (mode) => {
@@ -24,27 +47,14 @@ module.exports = class MyDevice extends Homey.Device {
       if (mode >= 3) {
         this.log(`User requested setting: ${mode}`);
         get(`http://192.168.2.26/control?cmd=event,mode${mode}`);
-          // const modeSet = mode as number
-          // Nested if's below are not yet working as I intend. No fan_speed results.
-          // if (modeSet === 11) {
-          //   const fanspeed = 0.15
-          //   this.setCapabilityValue('fan_speed', fanspeed).catch(this.error);
-          //   this.log('Set fan_speed to:', fanspeed);
-          // } else if (modeSet === 12) {
-          //   const fanspeed = 0.30
-          //   this.setCapabilityValue('fan_speed', fanspeed).catch(this.error);
-          //   this.log('Set fan_speed to:', fanspeed);
-          // } else if (modeSet === 13) {
-          //   const fanspeed = 1
-          //   this.setCapabilityValue('fan_speed', fanspeed).catch(this.error);
-          //   this.log('Set fan_speed to:', fanspeed);
-          // }
       } else if (mode === 0) {
         this.log(`User requested DucoBox auto`, mode);
       };
     });
 
     this.setCapabilityValue('Box_mode_enum_cap', `0`).catch(this.error); // Setting the default value when first initializing the device.
+
+    this.setCapabilityValue('fan_speed', 0); // Testcase.
 
     this.setUnavailable(this.homey.__('device_unavailable')).catch(this.error);
 
